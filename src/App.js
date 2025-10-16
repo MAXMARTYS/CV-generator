@@ -20,7 +20,7 @@ function App() {
   };
 
   const updateSection = (id, updated) => {
-    setSections(prev => prev.map(s => (s.id === id ? updated : s)))
+    setSections(prev => prev.map(s => (s.id === id ? {...s, ...updated} : s)));
   };
 
   const buttons = [];
