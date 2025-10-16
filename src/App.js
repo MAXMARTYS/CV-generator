@@ -1,9 +1,9 @@
 import './App.css';
 import { useState } from 'react';
 import { uid } from './lib/ids';
-import { LABELS } from './sections/labels';
-import { SECTION_EDITORS } from './sections/registry';
-import { SectionsList } from './sections/sectionsList'
+import { LABELS } from './components/sections/labels';
+import { SECTION_EDITORS } from './components/sections/registry';
+import { SectionsList } from './components/sections/sectionsList'
 
 function App() {
 

@@ -1,18 +1,13 @@
 import { uid } from '../../lib/ids';
+import { capitalizeFirstLetter } from '../../lib/utils';
 
-export function EducationSection({section, onChange}) {
+export function BlankSection({section, onChange, itemElements}) {
     const items = section.items || [];
 
     const addItem = () => {
-        // Name + number of features for each item
-        const newItem = {
-            id: uid(),
-            start: '',
-            end: '',
-            title: '',
-            description: '',
-            location: ''
-        };
+        const newItem = {};
+        itemElements.map(el => newItem[el] = '');
+        newItem['id'] = uid();
         // Add new item to the existing list
         onChange({...section, items: [...items, newItem]});
     };
@@ -38,11 +33,15 @@ export function EducationSection({section, onChange}) {
                 {items.map(it => (
                     <li key={it.id} style={{marginBottom: 14}}>
                         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 6}}>
-                            <input placeholder='Start' value={it.start} onChange={e => updateItem(it.id, 'start', e.target.value)}/>
-                            <input placeholder='End' value={it.end} onChange={e => updateItem(it.id, 'end', e.target.value)}/>
-                            <input placeholder='Title' value={it.title} onChange={e => updateItem(it.id, 'title', e.target.value)}/>
-                            <input placeholder='Location' value={it.location} onChange={e => updateItem(it.id, 'location', e.target.value)}/>
-                            <input placeholder='Description' value={it.description} onChange={e => updateItem(it.id, 'description', e.target.value)}/>
+                            {Object.keys(it).map(key => { 
+                                if (key === 'id') return null;
+                                return (
+                                    <input
+                                        placeholder={capitalizeFirstLetter(key)} 
+                                        value={it[key]} 
+                                        onChange={e => updateItem(it.id, key, e.target.value)}
+                                    />)
+                            })}
                         </div>
                         <button onClick={() => removeItem(it.id)}>Remove item</button>
                     </li>
